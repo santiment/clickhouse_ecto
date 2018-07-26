@@ -77,8 +77,8 @@ defmodule ClickhouseEcto.Connection do
       Regex.scan(~r/\?([0-9]+)/, sanitised)
       |> Enum.map( fn [_, x] -> String.to_integer(x) end)
 
-    if length(ordering) != length(params) do
-      raise "\nError: number of params received (#{length(params)}) does not match expected (#{length(ordering)})"
+    if Enum.max(ordering) != length(params) do
+      raise "\nError: number of params received (#{length(params)}) does not match expected (#{Enum.max(ordering)})"
     end
 
     ordered_params =
