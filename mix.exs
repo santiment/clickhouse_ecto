@@ -6,7 +6,7 @@ defmodule ClickhouseEcto.Mixfile do
       app: :clickhouse_ecto,
       version: "0.2.3",
       elixir: "~> 1.5",
-      start_permanent: Mix.env == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: description(),
       package: package(),
@@ -24,7 +24,8 @@ defmodule ClickhouseEcto.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ecto, "~> 2.1"},
+      {:ecto_sql, "~> 3.0"},
+      {:db_connection, "~> 2.0", override: true},
       {:clickhousex, "~> 0.2.2"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
