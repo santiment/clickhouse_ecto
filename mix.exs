@@ -26,7 +26,7 @@ defmodule ClickhouseEcto.Mixfile do
     [
       {:ecto_sql, "~> 3.0"},
       {:db_connection, "~> 2.0"},
-      {:clickhousex, github: "santiment/clickhousex"},
+      {:clickhousex, github: "santiment/clickhousex", branch: "ecto3"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
