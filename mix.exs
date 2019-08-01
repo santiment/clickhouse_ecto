@@ -25,8 +25,8 @@ defmodule ClickhouseEcto.Mixfile do
   defp deps do
     [
       {:ecto_sql, "~> 3.0"},
-      {:db_connection, "~> 2.0", override: true},
-      {:clickhousex, "~> 0.2.2"},
+      {:db_connection, "~> 2.0"},
+      {:clickhousex, github: "santiment/clickhousex"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
@@ -37,7 +37,7 @@ defmodule ClickhouseEcto.Mixfile do
       maintainers: maintainers(),
       licenses: ["Apache 2.0"],
       files: ["lib", "test", "config", "mix.exs", "README*", "LICENSE*"],
-      links: %{"GitHub" => "https://github.com/appodeal/clickhouse_ecto"}
+      links: %{"GitHub" => "https://github.comg/appodeal/clickhouse_ecto"}
     ]
   end
 
