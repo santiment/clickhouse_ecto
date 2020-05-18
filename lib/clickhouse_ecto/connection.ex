@@ -56,11 +56,11 @@ defmodule ClickhouseEcto.Connection do
       |> Enum.map(fn [_, x] -> String.to_integer(x) end)
 
     ordering_count = Enum.max_by(ordering, fn x -> x end, fn -> 0 end)
-
     if ordering_count != length(params) do
       raise "\nError: number of params received (#{length(params)}) does not match expected (#{
               ordering_count
             })"
+
     end
 
     ordered_params =
