@@ -29,6 +29,7 @@ defmodule ClickhouseEcto.Connection do
           {:ok, query :: map, term} | {:error, Exception.t()}
   def prepare_execute(conn, name, prepared_query, params, options) do
     query = %Query{name: name, statement: prepared_query}
+    ordered_params = order_params(prepared_query, params)
 
     case DBConnection.prepare_execute(conn, query, params, options) do
       {:ok, query, result} ->
@@ -43,6 +44,33 @@ defmodule ClickhouseEcto.Connection do
 
       {:error, error} ->
         raise error
+    end
+  end
+
+  defp order_params(query, params) do
+    sanitised =
+      Regex.replace(~r/(([^\\]|^))["'].*?[^\\]['"]/, IO.iodata_to_binary(query), "\\g{1}")
+
+    ordering =
+      Regex.scan(~r/\?([0-9]+)/, sanitised)
+      |> Enum.map(fn [_, x] -> String.to_integer(x) end)
+
+    ordering_count = Enum.max_by(ordering, fn x -> x end, fn -> 0 end)
+
+    if ordering_count != length(params) do
+      raise "\nError: number of params received (#{length(params)}) does not match expected (#{
+              ordering_count
+            })"
+    end
+
+    ordered_params =
+      ordering
+      |> Enum.reduce([], fn ix, acc -> [Enum.at(params, ix - 1) | acc] end)
+      |> Enum.reverse()
+
+    case ordered_params do
+      [] -> params
+      _ -> ordered_params
     end
   end
 
