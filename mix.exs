@@ -25,8 +25,9 @@ defmodule ClickhouseEcto.Mixfile do
   defp deps do
     [
       {:ecto_sql, "~> 3.0"},
-      #{:clickhousex, "~> 0.4.0"},
-      {:clickhousex, github: "ivanivanoff/clickhousex", branch: "revert-17-revert-15-prepare_for_ecto_3"},
+      # {:clickhousex, "~> 0.4.0"},
+      {:clickhousex,
+       github: "ivanivanoff/clickhousex", branch: "revert-17-revert-15-prepare_for_ecto_3"},
       {:ex_doc, "~> 0.19", only: :dev},
       {:db_connection, "~> 2.2.1", override: true}
     ]
