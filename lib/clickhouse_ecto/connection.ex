@@ -31,7 +31,7 @@ defmodule ClickhouseEcto.Connection do
     query = %Query{name: name, statement: prepared_query}
     ordered_params = order_params(prepared_query, params)
 
-    case DBConnection.prepare_execute(conn, query, params, options) do
+    case DBConnection.prepare_execute(conn, query, ordered_params, options) do
       {:ok, query, result} ->
         {:ok, %{query | statement: prepared_query}, process_rows(result, options)}
 
